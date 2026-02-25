@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Gerador de Assinatura</title>
+
+<!-- Biblioteca que transforma HTML em imagem -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  button {
+    background: #0057FF;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin-right: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  #assinatura {
+    width: 600px; /* AJUSTE PARA O TAMANHO DA SUA ARTE */
+    height: 250px; /* AJUSTE PARA O TAMANHO DA SUA ARTE */
+    background-image: url("URL_DA_IMAGEM");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    margin-top: 30px;
+  }
+
+  .campoTexto {
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  /* Ajuste estes números até o texto encaixar certinho no seu layout */
+  #nomeFinal { top: 80px; left: 200px; }
+  #cargoFinal { top: 110px; left: 200px; }
+  #telefoneFinal { top: 140px; left: 200px; }
+</style>
+
+</head>
+<body>
+
+<h2>Gerador da Assinatura</h2>
+
+<input id="nome" placeholder="Nome">
+<input id="cargo" placeholder="Cargo">
+<input id="telefone" placeholder="Telefone">
+
+<button onclick="gerar()">Gerar</button>
+<button onclick="baixar()">Baixar imagem</button>
+
+<div id="assinatura">
+  <div id="nomeFinal" class="campoTexto"></div>
+  <div id="cargoFinal" class="campoTexto"></div>
+  <div id="telefoneFinal" class="campoTexto"></div>
+</div>
+
+<script>
+function gerar() {
+  document.getElementById('nomeFinal').textContent =
+    document.getElementById('nome').value;
+
+  document.getElementById('cargoFinal').textContent =
+    document.getElementById('cargo').value;
+
+  document.getElementById('telefoneFinal').textContent =
+    document.getElementById('telefone').value;
+}
+
+function baixar() {
+  html2canvas(document.getElementById("assinatura")).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "assinatura.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
+
+</body>
+</html>
